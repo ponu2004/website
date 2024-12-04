@@ -3,22 +3,20 @@ session_start();
 include('connect.php');
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
-    // Collect form data
-    $name = $_POST["name"];
+     $name = $_POST["name"];
     $username = $_POST["username"];
     $password = $_POST["password"];
     $confirmpassword = $_POST["confirmpassword"];
     $email = $_POST["email"];
 
-    // Check if the required fields are not empty
+  
     if(!empty($email) && !empty($password) && !empty($confirmpassword)) {
-        // Ensure passwords match before inserting into the database
+    
         if ($password == $confirmpassword) {
-            // Corrected SQL query syntax: fixed single quotes and added prepared statements to prevent SQL injection
+          
             $query = "INSERT INTO form (name, username, password, confirmpassword, email) 
                       VALUES ('$name', '$username', '$password', '$confirmpassword', '$email')";
 
-            // Execute query
             if(mysqli_query($con, $query)) {
                 echo "<script type='text/javascript'>alert('Successfully registered');</script>";
             } else {
